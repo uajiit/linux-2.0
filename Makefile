@@ -148,19 +148,26 @@ endif
 
 include arch/$(ARCH)/Makefile
 
+# RISC-V gas rejects -traditional. The arch makefile sets AS_NO_TRADITIONAL.
+ifdef AS_NO_TRADITIONAL
+TRADFLAG =
+else
+TRADFLAG = -traditional
+endif
+
 ifdef SMP
 
 .S.s:
-	$(CC) -D__ASSEMBLY__ $(AFLAGS) -traditional -E -o $*.s $<
+	$(CC) -D__ASSEMBLY__ $(AFLAGS) $(TRADFLAG) -E -o $*.s $<
 .S.o:
-	$(CC) -D__ASSEMBLY__ $(AFLAGS) -traditional -c -o $*.o $<
+	$(CC) -D__ASSEMBLY__ $(AFLAGS) $(TRADFLAG) -c -o $*.o $<
 
 else
 
 .S.s:
-	$(CC) -D__ASSEMBLY__ -traditional -E -o $*.s $<
+	$(CC) -D__ASSEMBLY__ $(TRADFLAG) -E -o $*.s $<
 .S.o:
-	$(CC) -D__ASSEMBLY__ -traditional -c -o $*.o $<
+	$(CC) -D__ASSEMBLY__ $(TRADFLAG) -c -o $*.o $<
 
 endif
 

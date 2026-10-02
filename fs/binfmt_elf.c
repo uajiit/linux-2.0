@@ -37,6 +37,13 @@
 
 #include <linux/elf.h>
 
+#ifndef elf_check_arch
+#define elf_check_arch(x) ((x) == EM_386 || (x) == EM_486)
+#endif
+#ifndef ELF_ARCH
+#define ELF_ARCH EM_386
+#endif
+
 static int load_elf_binary(struct linux_binprm * bprm, struct pt_regs * regs);
 static int load_elf_library(int fd);
 static int elf_core_dump(long signr, struct pt_regs * regs);
@@ -175,7 +182,7 @@ static unsigned int load_elf_interp(struct elfhdr * interp_elf_ex,
 	/* First of all, some simple consistency checks */
 	if((interp_elf_ex->e_type != ET_EXEC && 
 	    interp_elf_ex->e_type != ET_DYN) || 
-	   (interp_elf_ex->e_machine != EM_386 && interp_elf_ex->e_machine != EM_486) ||
+	   !elf_check_arch(interp_elf_ex->e_machine) ||
 	   (!interpreter_inode->i_op ||
 	    !interpreter_inode->i_op->default_file_ops->mmap)){
 		return 0xffffffff;
@@ -368,7 +375,7 @@ do_load_elf_binary(struct linux_binprm * bprm, struct pt_regs * regs)
 	/* First of all, some simple consistency checks */
 	if((elf_ex.e_type != ET_EXEC &&
 	    elf_ex.e_type != ET_DYN) || 
-	   (elf_ex.e_machine != EM_386 && elf_ex.e_machine != EM_486) ||
+	   !elf_check_arch(elf_ex.e_machine) ||
 	   (!bprm->inode->i_op || !bprm->inode->i_op->default_file_ops ||
 	    !bprm->inode->i_op->default_file_ops->mmap)){
 		return -ENOEXEC;
@@ -741,7 +748,7 @@ do_load_elf_library(int fd){
 
 	/* First of all, some simple consistency checks */
 	if(elf_ex.e_type != ET_EXEC || elf_ex.e_phnum > 2 ||
-	   (elf_ex.e_machine != EM_386 && elf_ex.e_machine != EM_486) ||
+	   !elf_check_arch(elf_ex.e_machine) ||
 	   (!inode->i_op || !inode->i_op->default_file_ops->mmap))
 		return -ENOEXEC;
 	
@@ -988,7 +995,7 @@ static int elf_core_dump(long signr, struct pt_regs * regs)
 	memset(elf.e_ident+EI_PAD, 0, EI_NIDENT-EI_PAD);
 	
 	elf.e_type = ET_CORE;
-	elf.e_machine = EM_386;
+	elf.e_machine = ELF_ARCH;
 	elf.e_version = EV_CURRENT;
 	elf.e_entry = 0;
 	elf.e_phoff = sizeof(elf);

@@ -44,6 +44,13 @@
 #endif /* __ELF__ */
 #endif /* __i486__/__i586__ */
 
+#ifdef __riscv
+#undef __ALIGN
+#undef __ALIGN_STR
+#define __ALIGN .align 2
+#define __ALIGN_STR ".align 2"
+#endif
+
 #ifdef __ASSEMBLY__
 
 #define ALIGN __ALIGN

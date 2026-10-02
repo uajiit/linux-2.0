@@ -1,0 +1,42 @@
+OUTPUT_ARCH(riscv)
+ENTRY(_start)
+
+SECTIONS
+{
+	. = 0x80000000;
+
+	_stext = .;
+	.text : {
+		*(.text.head)
+		*(.text)
+		*(.text.*)
+		*(.fixup)
+	}
+	_etext = .;
+
+	.rodata : {
+		*(.rodata)
+		*(.rodata.*)
+		*(.srodata)
+		*(.srodata.*)
+	}
+
+	.data : {
+		*(.data)
+		*(.data.*)
+		*(.sdata)
+		*(.sdata.*)
+	}
+	_edata = .;
+
+	.bss : {
+		__bss_start = .;
+		*(.sbss)
+		*(.sbss.*)
+		*(.bss)
+		*(.bss.*)
+		*(COMMON)
+	}
+	. = ALIGN(16);
+	_end = .;
+}

@@ -117,7 +117,7 @@ static inline void ax25_route_invert(ax25_digi *in, ax25_digi *out)
 void ax25_rt_rx_frame(ax25_address *src, struct device *dev, ax25_digi *digi)
 {
 	unsigned long flags;
-	extern struct timeval xtime;
+	extern volatile struct timeval xtime;
 	struct ax25_route *ax25_rt;
 	struct ax25_route *oldest;
 	int count;

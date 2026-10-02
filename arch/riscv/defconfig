@@ -1,0 +1,68 @@
+#
+# Automatically generated make config: don't edit
+#
+
+#
+# Code maturity level options
+#
+# CONFIG_EXPERIMENTAL is not set
+
+#
+# Loadable module support
+#
+# CONFIG_MODULES is not set
+
+#
+# General setup
+#
+# CONFIG_NET is not set
+# CONFIG_SYSVIPC is not set
+CONFIG_BINFMT_ELF=y
+
+#
+# Floppy, IDE, and other block devices
+#
+# CONFIG_BLK_DEV_FD is not set
+# CONFIG_BLK_DEV_IDE is not set
+# CONFIG_BLK_DEV_HD_ONLY is not set
+# CONFIG_BLK_DEV_LOOP is not set
+# CONFIG_BLK_DEV_MD is not set
+CONFIG_BLK_DEV_RAM=y
+# CONFIG_BLK_DEV_INITRD is not set
+# CONFIG_BLK_DEV_XD is not set
+
+#
+# Filesystems
+#
+# CONFIG_QUOTA is not set
+# CONFIG_LOCK_MANDATORY is not set
+# CONFIG_MINIX_FS is not set
+# CONFIG_EXT_FS is not set
+CONFIG_EXT2_FS=y
+# CONFIG_XIA_FS is not set
+# CONFIG_FAT_FS is not set
+CONFIG_PROC_FS=y
+# CONFIG_INET is not set
+# CONFIG_IPX is not set
+# CONFIG_NCP_FS is not set
+# CONFIG_ISO9660_FS is not set
+# CONFIG_HPFS_FS is not set
+# CONFIG_SYSV_FS is not set
+# CONFIG_UFS_FS is not set
+
+#
+# Character devices
+#
+# CONFIG_SERIAL is not set
+# CONFIG_DIGI is not set
+# CONFIG_CYCLADES is not set
+# CONFIG_STALDRV is not set
+# CONFIG_RISCOM8 is not set
+# CONFIG_PRINTER is not set
+# CONFIG_MOUSE is not set
+# CONFIG_UMISC is not set
+# CONFIG_QIC02_TAPE is not set
+# CONFIG_FTAPE is not set
+# CONFIG_APM is not set
+# CONFIG_WATCHDOG is not set
+# CONFIG_RTC is not set

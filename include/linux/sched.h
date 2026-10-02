@@ -321,7 +321,7 @@ extern struct task_struct *current_set[NR_CPUS];
 extern unsigned long volatile jiffies;
 extern unsigned long itimer_ticks;
 extern unsigned long itimer_next;
-extern struct timeval xtime;
+extern volatile struct timeval xtime;
 extern int need_resched;
 extern void do_timer(struct pt_regs *);
 

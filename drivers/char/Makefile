@@ -20,9 +20,13 @@ FONTMAPFILE = cp437.uni
 
 L_TARGET := char.a
 M_OBJS   :=
+ifeq ($(ARCH),riscv)
+L_OBJS   := tty_io.o n_tty.o tty_ioctl.o pty.o mem.o random.o
+else
 L_OBJS   := tty_io.o n_tty.o console.o \
 	tty_ioctl.o pty.o vt.o mem.o vc_screen.o random.o \
 	consolemap.o selection.o
+endif
 
 ifeq ($(CONFIG_SERIAL),y)
   ifndef CONFIG_SUN_SERIAL
@@ -35,7 +39,9 @@ else
 endif
 
 ifndef CONFIG_SUN_KEYBOARD
+ifneq ($(ARCH),riscv)
 L_OBJS += keyboard.o defkeymap.o
+endif
 endif
 
 ifeq ($(CONFIG_DIGI),y)
@@ -202,7 +208,9 @@ ifdef CONFIG_TGA_CONSOLE
 L_OBJS += tga.o
 else
  ifndef CONFIG_SUN_CONSOLE
+ ifneq ($(ARCH),riscv)
  L_OBJS += vga.o vesa_blank.o
+ endif
  endif
 endif
 
